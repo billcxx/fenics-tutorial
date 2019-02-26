@@ -21,7 +21,8 @@
 %\RequirePackage[swedish]{babel}
 %\RequirePackage[utf8]{inputenc}
 
-\RequirePackage[UTF8]{ctex}
+%\RequirePackage[UTF8]{ctex}
+\usepackage{xeCJK}
 
 % Geometry
 %--------------------------------------------------------------------------
@@ -139,7 +140,7 @@ contents={\includegraphics[width=\paperwidth,height=\paperheight]{cover}}}
 % Minitoc styling
 %--------------------------------------------------------------------------
 \RequirePackage{minitoc}
-\setcounter{minitocdepth}{2}
+\setcounter{minitocdepth}{1}
 \dominitoc[n]
 \nomtcrule
 \nomtcpagenumbers
@@ -152,13 +153,13 @@ contents={\includegraphics[width=\paperwidth,height=\paperheight]{cover}}}
 % Table of contents styling
 %--------------------------------------------------------------------------
 \RequirePackage{titletoc}
-\setcounter{tocdepth}{2}
+\setcounter{tocdepth}{1}
 
 \titlecontents{chapter}[0cm]
 {\addvspace{14pt}\large\sffamily\bfseries}
 {\color{tssteelblue}\contentslabel[\Large\thecontentslabel]{1.25cm}}{}
 {\color{tssteelblue}\normalsize\sffamily\bfseries
- \;\titlerule*[.5pc]{.}\;\thecontentspage}
+ \;\titlerule*[.5pc]{.}\hspace{1.5cm}\textbf{\thecontentspage}}
 
 \titlecontents{section}[0cm]
 {\addvspace{6pt}\sffamily\bfseries}
@@ -185,21 +186,21 @@ contents={\includegraphics[width=\paperwidth,height=\paperheight]{cover}}}
 \BgThispage
 \begin{center}
   \null
-  \smallskip
+  %\smallskip
 
-  \color{white}
-  \sffamily
+  %\color{white}
+  %\sffamily
 
-  \Huge
-  \textsc{\@tstitle}
+  %\Huge
+  %\textsc{\@tstitle}
 
-  \bigskip
-  \smallskip
+  %\bigskip
+  %\smallskip
 
-  \LARGE
-  \textsf{\@tsauthor} \\[1em]
-  \LARGE
-  \textsc{\@tspublished}
+  %\LARGE
+  %\textsf{\@tsauthor} \\[1em]
+  %\LARGE
+  %\textsc{\@tspublished}
 \end{center}
 
 \pagebreak
@@ -234,6 +235,7 @@ contents={\includegraphics[width=\paperwidth,height=\paperheight]{cover}}}
 \cleardoublepage
 \pagestyle{fancy}
 \thispagestyle{empty}
+\adjustmtc
 }
 
 % Boxes for theorems
@@ -303,6 +305,12 @@ contents={\includegraphics[width=\paperwidth,height=\paperheight]{cover}}}
  \nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}
  \thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries\color{black} (#3)}}
 
+\newtheoremstyle{stylenotice}
+{0pt}{0pt}{\normalfont}{0pt}{\small\bf\sffamily\color{black}}{}{0.25em}
+{\small\sffamily\color{black}
+ \nobreakspace
+ \thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries\color{black} (#3)}}
+
 \theoremstyle{styledefinition}
 \newtheorem{envdefinition}{Definition}[chapter]
 \theoremstyle{styletheorem}
@@ -313,6 +321,8 @@ contents={\includegraphics[width=\paperwidth,height=\paperheight]{cover}}}
 \newtheorem{envproblem}{Problem}[chapter]
 \newtheorem{envprogramming}{Computer exercise}[chapter]
 \newtheorem{envexample}{Exempel}[chapter]
+\theoremstyle{stylenotice}
+\newtheorem{envnotice}{Notice}[chapter]
 
 % Environments for theorems
 %--------------------------------------------------------------------------
@@ -349,8 +359,8 @@ contents={\includegraphics[width=\paperwidth,height=\paperheight]{cover}}}
                {\end{envexample}\end{boxexample}}
 
 \newenvironment{notice}
-               {\begin{boxnotice}}
-               {\end{boxnotice}}
+               {\begin{boxnotice}\begin{envnotice}}
+               {\end{envnotice}\end{boxnotice}}
 
 % Other environments
 %--------------------------------------------------------------------------

@@ -1383,11 +1383,6 @@ discontinuous Galerkin methods.
 \index{DirichletBC@{\rm\texttt{DirichletBC}}}
 \index{Dirichlet boundary conditions}
 
-%>>>>>>>I AM HERE<<<<<<<<<<<<
-
-
-
-
 \subsection{Defining the trial and test functions}
 
 In mathematics, we distinguish between the trial and test spaces $V$
@@ -1436,7 +1431,6 @@ where \texttt{formula} is a string containing a mathematical expression.
 The formula must be written with C++ syntax and is
 automatically turned into an efficient, compiled C++ function.
 
-
 \begin{notice_mdfboxadmon}[Expressions and accuracy]
 When defining an \texttt{Expression}, the second argument \texttt{degree} is a
 parameter that specifies how the expression should be treated in
@@ -1450,8 +1444,6 @@ an exact solution which is used to evaluate the accuracy of a computed
 solution, a higher degree must be used for the expression (one or two
 degrees higher).
 \end{notice_mdfboxadmon} % title: Expressions and accuracy
-
-
 
 The expression may depend on the variables \texttt{x[0]} and \texttt{x[1]}
 corresponding to the $x$ and $y$ coordinates. In 3D, the expression
@@ -1468,7 +1460,6 @@ quadratic solution to our test problem.
 
 \index{C++ expression syntax}
 \index{expression syntax (C++)}
-
 
 \begin{notice_mdfboxadmon}[String expressions must have valid C++ syntax!]
 The string argument to an \texttt{Expression} object must obey C++ syntax.
@@ -1515,8 +1506,6 @@ f.t += dt
 f.k = 10
 \end{lstlisting}
 \end{notice_mdfboxadmon} % title: String expressions must have valid C++ syntax!
-
-
 
 \index{boundary specification (function)}
 
@@ -1576,7 +1565,6 @@ def boundary(x):
 \index{tolerance}
 \index{rounding errors}
 
-
 \begin{warning_mdfboxadmon}[Never use \texttt{==} for comparing real numbers!]
 A comparison like \texttt{x[0] == 1} should never be used if \texttt{x[0]} is a real
 number, because rounding errors in \texttt{x[0]} may make the test fail even
@@ -1613,8 +1601,6 @@ For numbers of unit size, tolerances as low as $3\cdot 10^{-16}$ can be used
 Otherwise, an appropriately scaled tolerance must be used.
 \end{warning_mdfboxadmon} % title: Never use \texttt{==} for comparing real numbers!
 
-
-
 \index{UFL}
 
 \subsection{Defining the source term}
@@ -1650,7 +1636,6 @@ that makes it easy to specify and solve complicated PDE problems. The
 language used to express weak forms is called UFL (Unified Form
 Language) \cite{UFL_2014,FEniCS} and is an integral part of FEniCS.
 
-
 \begin{notice_mdfboxadmon}[Expressing inner products]
 The inner product $\int_{\Omega} \nabla u \cdot \nabla v \dx$
 can be expressed in various ways in FEniCS. Above, we have used
@@ -1663,8 +1648,6 @@ and $\nabla v$. To compute an inner product of matrices (with
 two indices), one must instead of \texttt{dot} use the function \texttt{inner}.
 For vectors, \texttt{dot} and \texttt{inner} are equivalent.
 \end{notice_mdfboxadmon} % title: Expressing inner products
-
-
 
 % Instead of \texttt{grad} we could also just have written \texttt{grad} in the
 % examples in this tutorial. However, when taking gradients of vector
@@ -1730,7 +1713,6 @@ two plots.
 \end{figure}
 %\clearpage % flush figures fig:poisson_plot
 
-
 The \texttt{plot} command is useful for debugging and initial scientific
 investigations. More advanced visualizations are better created by
 exporting the solution to a file and using an advanced visualization
@@ -1763,8 +1745,6 @@ For Docker users who need plotting, it is recommended to either work
 within a Jupyter/FEniCS notebook (command \texttt{fenicsproject notebook})
 or rely on ParaView or other external tools for visualization.
 \end{warning_mdfboxadmon} % title: Built-in plotting on Mac OS X and in Docker
-
-
 
 \subsection{Plotting the solution using ParaView}
 
@@ -1876,8 +1856,6 @@ polynomials increases the error. For a mesh with $2\times(20\times
 10^{-12}$, while for 128 linear elements the error is about $2\cdot
 10^{-15}$.
 \end{notice_mdfboxadmon} % title: How to check that the error vanishes
-
-
 
 \subsection{Examining degrees of freedom and vertex values}
 \label{ch:poisson0:impl:dofmap}
@@ -2030,8 +2008,6 @@ this new problem.
 A mesh over the unit disk can be created by the \texttt{mshr} tool in
 FEniCS:
 
-
-
 \begin{lstlisting}[language=Python,style=graycolor]
 from mshr import *
 domain = Circle(Point(0, 0), 1)
@@ -2071,8 +2047,6 @@ values modified. For example, we may set
 p.beta = 12
 p.R0 = 0.3
 \end{lstlisting}
-
-
 
 \subsection{Defining the variational problem}
 
@@ -2136,8 +2110,6 @@ of the deflection \texttt{w} and the load \texttt{p} created with ParaView.
 \end{figure}
 %\clearpage % flush figures fig:poisson_membrane_deflection_load
 
-
-
 \subsection{Making curve plots through the domain}
 
 \index{curve plots}
@@ -2182,8 +2154,6 @@ property of the Poisson equation.
   }
 \end{figure}
 %\clearpage % flush figures fig:poisson_membrane_curves
-
-
 
 % !split
 \chapter{A Gallery of finite element solvers}
@@ -2447,9 +2417,6 @@ u_n = project(u_D, V)
 u_n = interpolate(u_D, V)
 \end{lstlisting}
 
-
-
-
 \begin{warning_mdfboxadmon}[Projecting versus interpolating the initial condition]
 To actually recover the exact solution
 (\ref{ch:diffusion0:pde1:u0test}) to machine precision, it is important
@@ -2457,8 +2424,6 @@ to compute the discrete initial condition by interpolating $\uI$. This
 ensures that the degrees of freedom are exact (to machine precision)
 at $t=0$. Projection results in approximate values at the nodes.
 \end{warning_mdfboxadmon} % title: Projecting versus interpolating the initial condition
-
-
 
 \index{lhs@{\rm\texttt{lhs}}}
 \index{rhs@{\rm\texttt{rhs}}}
@@ -2505,7 +2470,6 @@ we will set the \Verb!u_n! variable to be the \emph{same} variable as \texttt{u}
 which is not what we want. (We need two variables, one for the values
 at the previous time step and one for the values at the current time
 step.)
-
 
 \begin{warning_mdfboxadmon}[Remember to update expression objects with the current time!]
 Inside the time loop, observe that \Verb!u_D.t! must be updated before the
@@ -2742,8 +2706,6 @@ of snapshots of the solution.
 \end{figure}
 %\clearpage % flush figures fig:snapshots
 
-
-
 % !split
 % Stand-alone notebook?
 
@@ -2853,7 +2815,6 @@ print('f =', f_code)
 \index{SymPy}
 \index{method of manufactured solutions}
 
-
 \begin{notice_mdfboxadmon}[Define symbolic coordinates as required in \texttt{Expression} objects]
 Note that we would normally write \texttt{x, y = sym.symbols('x, y')}, but
 if we want the resulting expressions to have valid syntax for
@@ -2861,8 +2822,6 @@ FEniCS \texttt{Expression} objects, we must use \texttt{x[0]} and \texttt{x[1]}.
 This is easily accomplished with \texttt{sympy} by defining the names of \texttt{x} and
 \texttt{y} as \texttt{x[0]} and \texttt{x[1]}: \texttt{x, y = sym.symbols('x[0], x[1]')}.
 \end{notice_mdfboxadmon} % title: Define symbolic coordinates as required in \texttt{Expression} objects
-
-
 
 Turning the expressions for \texttt{u} and \texttt{f} into C or C++ syntax for
 FEniCS \texttt{Expression} objects needs two steps. First, we ask for the C
@@ -2894,7 +2853,6 @@ Similarly, we define the right-hand side function as
 f = Expression(f_code, degree=1)
 \end{lstlisting}
 
-
 \begin{warning_mdfboxadmon}[Name clash between FEniCS and program variables]
 In a program like the one above, strange errors may occur due to
 name clashes. If you define \texttt{sym} and \texttt{q} prior to doing
@@ -2908,8 +2866,6 @@ object names by \texttt{fenics}. The next best solution is to do
 that overwrite those imported from \texttt{fenics}. This is acceptable
 if we do not need \texttt{sym} and \texttt{q} from \texttt{fenics}.
 \end{warning_mdfboxadmon} % title: Name clash between FEniCS and program variables
-
-
 
 \paragraph{FEniCS implementation.}
 A solver for the nonlinear Poisson equation is as easy to
@@ -3104,7 +3060,6 @@ where $\varepsilon(v)$ is the symmetric part of $\nabla v$:
 The formulation (\ref{ftut:elast:varform:sigma_inner_eps}) is what naturally
 arises from minimization of elastic potential energy and is a more
 popular formulation than (\ref{ftut:elast:varform:sigma_inner_gradv}).
-
 
 \subsection{FEniCS implementation}
 
@@ -3455,7 +3410,6 @@ terms $pn - \mu(\nabla u)^{\top} \cdot n$!
 \index{grad@{\rm\texttt{grad}}}
 \index{nabla\_grad@{\rm\texttt{nabla\_grad}}}
 
-
 \begin{warning_mdfboxadmon}[\texttt{grad(u)} vs. \protect\Verb!nabla\_grad(u)!]
 For scalar functions, $\nabla u$ has a clear meaning as the vector
 
@@ -3515,8 +3469,6 @@ $\partial \sigma_{ij}/{\partial x_i}$. In general, these expressions
 will be different but when the stress measure is symmetric, the
 expressions have the same value.
 \end{warning_mdfboxadmon} % title: \texttt{grad(u)} vs. \protect\Verb!nabla\_grad(u)!
-
-
 
 We now move on to the second step in our splitting scheme for the
 incompressible Navier--Stokes equations. In the first step, we computed
@@ -3949,7 +3901,6 @@ use any scaling for this problem since all exact parameters are known.
 \end{figure}
 %\clearpage % flush figures ftut1:navier_stokes_cylinder:geometry
 
-
 \paragraph{FEniCS implementation.}
 So far all our domains have been simple shapes such as a unit square or
 a rectangular box. A number of such simple meshes may be created
@@ -4039,7 +3990,6 @@ for n in range(num_steps):
     progress.update(t / T)
 \end{lstlisting}
 
-
 \begin{notice_mdfboxadmon}[Log levels and printing in FEniCS]
 Notice the call to \Verb!set_log_level(PROGRESS)! which is essential to
 make FEniCS actually display the progress bar. FEniCS is actually
@@ -4062,8 +4012,6 @@ level (and in the case of \texttt{error} also throw an exception and
 exit). One may also use the call \texttt{log(level, message)} to print a
 message at a specific log level.
 \end{notice_mdfboxadmon} % title: Log levels and printing in FEniCS
-
-
 
 Since the system(s) of linear equations are significantly larger than
 for the simple channel flow test problem, we choose to use an
@@ -4558,7 +4506,6 @@ V = FunctionSpace(mesh, element)
 \end{warning_mdfboxadmon} % title: Mixed elements as products of elements
 
 
-
 Once the space has been created, we need to define our test functions
 and finite element functions. Test functions for a mixed function
 space can be created by replacing \texttt{TestFunction} by \texttt{TestFunctions}:
@@ -4626,7 +4573,6 @@ of $C$ along the center of the channel where $A$ and $B$ meet.
   }
 \end{figure}
 %\clearpage % flush figures ftut1:fig:reactionsystem:solution
-
 
 The complete code is presented below.
 
@@ -4726,7 +4672,6 @@ interactive()
 This example program can be found in the file \href{{https://fenicsproject.org/pub/tutorial/python/vol1/ft09_reaction_system.py}}{\nolinkurl{ft09_reaction_system.py}}.
 
 \index{ft09\_reaction\_system.py@{\rm\texttt{ft09\_reaction\_system.py}}}
-
 
 Finally, we comment on three important techniques that are very useful
 when working with systems of PDEs: setting initial conditions, setting
@@ -5042,7 +4987,6 @@ solve(a == L, u, bcs)
 
 Note that for boundary values that do not depend on $x$ or $y$, we
 might replace the \texttt{Expression} objects by \texttt{Constant} objects.
-
 
 % !split
 \section{Defining subdomains for different materials}
@@ -5417,7 +5361,6 @@ kappa.k_0 = k_0
 kappa.k_1 = k_1
 \end{lstlisting}
 
-
 % !split
 \section{Setting multiple Dirichlet, Neumann, and Robin conditions}
 \label{ch:poisson0:multi:bc}
@@ -5547,7 +5490,6 @@ L = rhs(F)
 \end{lstlisting}
 Note that if we choose to solve this linear problem as a nonlinear
 problem, the Newton iteration will converge in a single iteration.
-
 
 \subsection{FEniCS implementation}
 
@@ -6020,7 +5962,6 @@ A detail of the mesh is shown in Figure~\ref{ftut1:fig:magnetostatics:mesh}.
 \end{figure}
 %\clearpage % flush figures ftut1:fig:magnetostatics:mesh
 
-
 The mesh generated with \texttt{mshr} will contain information about the
 subdomains we have defined. To use this information in the definition of
 our variational problem and subdomain-dependent parameters, we will need to
@@ -6488,8 +6429,6 @@ This line starts an interactive Python session which lets you
 print and plot variables, which can be very helpful for debugging.
 \end{notice_mdfboxadmon} % title: Tip: Debugging with iPython
 
-
-
 \subsection{Parameterizing the number of space dimensions}
 \label{ch:poisson0:nD}
 \index{dimension-independent code}
@@ -6743,8 +6682,6 @@ linear algebra backend is currently active. The following table
 shows an example of which linear solvers that can be available
 through FEniCS when the PETSc backend is active:
 
-
-
 {\small   % for Springer style: small table font and more vspace
 
 \vspace{4mm}
@@ -6768,7 +6705,6 @@ through FEniCS when the PETSc backend is active:
 \vspace{4mm}
 
 }
-
 
 \noindent
 The set of available preconditioners also depends on configuration and
@@ -7134,7 +7070,7 @@ coordinates, and in particular, the numbering of degrees of freedom
 and the numbering of vertices in the mesh.
 
 The function \texttt{mesh.coordinates} returns the coordinates of the
-vertices as a \texttt{numpy} array with shape $(M,d$), $M$ being the number
+vertices as a \texttt{numpy} array with shape ($M,d$), $M$ being the number
 of vertices in the mesh and $d$ being the number of space dimensions:
 
 \begin{lstlisting}[language=Python,style=graycolor]
@@ -7284,8 +7220,6 @@ A call like \texttt{u.vector().array()} returns a \emph{copy} of the data in
 \texttt{u.vector.array()[:] = ...}, but instead extract the \texttt{numpy} array
 (i.e., a copy), manipulate it, and insert it back with \texttt{u.vector()[:] = } or use \Verb!u.set_local(...)!.
 \end{warning_mdfboxadmon} % title: Be careful when manipulating degrees of freedom
-
-
 
 \subsection{Function evaluation}
 
@@ -7528,8 +7462,6 @@ The boundary condition argument to \texttt{solve} is dropped since there are
 no essential boundary conditions in this problem.
 \end{notice_mdfboxadmon} % title: Manual projection.
 
-
-
 \subsection{Computing functionals}
 \label{ch:poisson0:functionals}
 \index{functionals}
@@ -7687,8 +7619,6 @@ odd degrees so that degree $0$ will use the same quadrature
 rule as degree $1$,
 degree $2$ will give the same quadrature rule as degree $3$ and so on.
 \end{notice_mdfboxadmon} % title: A note on the accuracy of integration
-
-
 
 \subsection{Computing convergence rates}
 \label{ch:poisson0:convrates}
@@ -8110,7 +8040,6 @@ plt.title('Contour plot of solution')
 \end{lstlisting}
 The result appears in Figure~\ref{ftut:structviz:fig1} (upper right).
 
-
 \paragraph{Making curve plots through the domain.}
 A handy feature of \texttt{BoxField} objects is the ability to give a starting
 point in the domain and a direction, and then extract the field and
@@ -8254,6 +8183,10 @@ It remains to define \texttt{kappa = Constant(1)} and set \texttt{nx} and \textt
 \texttt{solver} to compute the finite element solution of this problem.
 
 % FIGURE: [fig/poisson_vc_structmesh, width=800 frac=1] Various plots of the solution on a structured mesh. \label{ftut:structviz:fig1a}
+
+
+%----------I AM HERE ----------
+
 
 
 % !split

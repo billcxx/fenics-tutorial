@@ -1208,7 +1208,7 @@ mesh = generate_mesh(domain, 32)
 A detail of the mesh is shown in Figure
 ref{ftut1:fig:magnetostatics:mesh}.
 
-FIGURE:[fig/magnetostatics_mesh, width=800 frac=0.95] Plot of (part of) the mesh generated for the magnetostatics test problem. The subdomains for the iron cylinder and copper wires are clearly visible label{ftut1:fig:magnetostatics:mesh}
+FIGURE:[fig/magnetostatics_mesh, width=800 frac=0.95] Plot of (part of) the mesh generated for the magnetostatics test problem. The subdomains for the iron cylinder and copper wires are clearly visible. label{ftut1:fig:magnetostatics:mesh}
 
 The mesh generated with `mshr` will contain information about the
 subdomains we have defined. To use this information in the definition of
@@ -1234,7 +1234,7 @@ dx = Measure('dx', domain=mesh, subdomain_data=markers)
 !ec
 Integrals over subdomains can then be expressed by `dx(0)`, `dx(1)`,
 and so on. We use this to define the current $J_z = \pm 1\,\mathrm{A}$
-in the coppper wires:
+in the copper wires:
 
 !bc pycod
 J_N = Constant(1.0)
@@ -1251,17 +1251,17 @@ The permeability is defined as an `Expression` that depends on the
 subdomain number:
 !bc
 class Permeability(Expression):
-    def __init__(self, mesh, **kwargs):
+    def __init__(self, markers, **kwargs):
         self.markers = markers
-    def eval_cell(self, values, x, ufc_cell):
-        if markers[ufc_cell.index] == 0:
+    def eval_cell(self, values, x, cell):
+        if self.markers[cell.index] == 0:
             values[0] = 4*pi*1e-7 # vacuum
-        elif markers[ufc_cell.index] == 1:
-            values[0] = 1e-5      # iron (should really be 2.5e-1)
+        elif self.markers[cell.index] == 1:
+            values[0] = 1e-5      # iron (should really be 6.3e-3)
         else:
-            values[0] = -6.4e-6   # copper (yes, it's negative!)
+            values[0] = 1.26e-6   # copper
 
-mu = Permeability(mesh, degree=1)
+mu = Permeability(markers, degree=1)
 !ec
 As seen in this code snippet, we have used a somewhat less extreme
 value for the magnetic permeability of iron. This is to make the
